@@ -1,0 +1,37 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+name : Docker-CI-GitHub(docker-test)-image-to-DockerHub
+
+trigger:
+  branches:
+    include:
+      - master
+
+pool:
+  vmImage: ubuntu-latest
+
+
+variables:
+  ImageName: 'omaranwarorbispay/azure-vidly-test-backend:$(Build.BuildId)'
+
+stages:
+  - stage: Build
+    displayName: Build image
+    jobs:
+      - job: DockerImage
+        displayName: Build and push Docker image
+        steps:
+        - task: Docker@1
+          displayName: 'Build the Docker image'
+          inputs:
+            containerregistrytype: 'Container Registry'
+            dockerRegistryEndpoint: 'Docker Hub-omaranwarorbispay'
+            command: 'Build an image'
+            dockerFile: 'backend/Dockerfile'
+            imageName: '$(ImageName)'
+            useDefaultContext: false
+            buildContext: '.'
+
