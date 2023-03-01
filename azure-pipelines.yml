@@ -32,6 +32,6 @@ stages:
             command: 'Build an image'
             dockerFile: 'backend/Dockerfile'
             imageName: '$(ImageName)'
-            useDefaultContext: false
-            buildContext: '.'
+            # useDefaultContext: false
+            # buildContext: '.'
 
