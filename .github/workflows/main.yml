@@ -34,7 +34,7 @@ jobs:
         context: .
         file: ./backend/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/$BACKEND_IMAGE_NAME
+        tags: ${{ secrets.DOCKER_USERNAME }}/${{env.BACKEND_IMAGE_NAME}}
 
     - name: frontend docker image build and push
       uses: docker/build-push-action@v4
