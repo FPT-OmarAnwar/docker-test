@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  backend_image_name: backend-vidly
-  frontend_image_name: frontend-vidly
 
 jobs:
   build:
@@ -31,21 +28,25 @@ jobs:
     #     echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
     - name: backend docker image build and push
       uses: docker/build-push-action@v4
+      env:
+        BACKEND_IMAGE_NAME: backend-vidly
       with:
         context: .
         file: ./backend/Dockerfile
         push: true
         tags:  |
-          ${{ secrets.DOCKER_USERNAME }}/($backend_image_name)
+          ${{ secrets.DOCKER_USERNAME }}/$BACKEND_IMAGE_NAME
 
     - name: frontend docker image build and push
       uses: docker/build-push-action@v4
+      env:
+        FRONTEND_IMAGE_NAME: frontend-vidly
       with:
         context: .
         file: ./frontend/Dockerfile
         push: true
         tags:  |
-          ${{ secrets.DOCKER_USERNAME }}/($frontend_image_name)
+          ${{ secrets.DOCKER_USERNAME }}/$FRONTEND_IMAGE_NAME
 
 
 
