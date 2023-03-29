@@ -25,6 +25,9 @@ jobs:
 
     #   run: |
     #     echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
+    # - name: docker image build and push
+    #   uses: docker/build-push-action@v6
+
 
     - name: docker build backend
       # registry: docker.io
