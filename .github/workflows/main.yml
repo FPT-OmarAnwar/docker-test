@@ -35,7 +35,7 @@ jobs:
         file: ./backend/Dockerfile
         push: true
         tags:  |
-          ${{ secrets.DOCKER_USERNAME }}/$BACKEND_IMAGE_NAME
+          ${{ secrets.DOCKER_USERNAME }}/$BACKEND_IMAGE_NAME:latest
 
     - name: frontend docker image build and push
       uses: docker/build-push-action@v4
@@ -46,7 +46,7 @@ jobs:
         file: ./frontend/Dockerfile
         push: true
         tags:  |
-          ${{ secrets.DOCKER_USERNAME }}/$FRONTEND_IMAGE_NAME
+          ${{ secrets.DOCKER_USERNAME }}/$FRONTEND_IMAGE_NAME:latest
 
 
 
