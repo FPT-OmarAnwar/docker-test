@@ -3,17 +3,44 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+name : Docker-CI-GitHub(docker-test)-image-to-DockerHub
+
 trigger:
-- main
+  branches:
+    include:
+      - master
 
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+variables:
+  ImageName: 'omaranwarorbispay/azure-vidly-test-backend:$(Build.BuildId)'
+
+stages:
+  - stage: Build
+    displayName: Build image
+    jobs:
+      - job: DockerImage
+        displayName: Build and push Docker image
+        steps:
+        - task: Docker@1
+          displayName: 'Build the Docker image'
+          inputs:
+            containerregistrytype: 'Container Registry'
+            dockerRegistryEndpoint: 'Docker Hub-omaranwarorbispay'
+            command: 'Build an image'
+            dockerFile: 'backend/Dockerfile'
+            imageName: '$(ImageName)'
+            # useDefaultContext: false
+            # buildContext: '.'
+        - task: Docker@1
+          displayName: 'Push the Docker image to Dockerhub'
+          inputs:
+            containerregistrytype: 'Container Registry'
+            dockerRegistryEndpoint: 'Docker Hub-omaranwarorbispay'
+            command: 'Push an image'
+            imageName: '$(ImageName)'
+          condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+          
+
