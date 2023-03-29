@@ -30,7 +30,7 @@ jobs:
     #   run: |
     #     echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
     - name: backend docker image build and push
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v4
       with:
         context: .
         file: ./backend/Dockerfile
@@ -39,7 +39,7 @@ jobs:
           ${{ secrets.DOCKER_USERNAME }}/$backend_image_name:latest
 
     - name: frontend docker image build and push
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v4
       with:
         context: .
         file: ./frontend/Dockerfile
