@@ -34,7 +34,7 @@ jobs:
         context: .
         file: ./backend/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/${{env.BACKEND_IMAGE_NAME}}:${{env.GITHUB_RUN_ATTEMPT}}
+        tags: ${{ secrets.DOCKER_USERNAME }}/${{env.BACKEND_IMAGE_NAME}}:${{github.run_attempt}}
 
     - name: frontend docker image build and push
       uses: docker/build-push-action@v4
@@ -44,7 +44,7 @@ jobs:
         context: .
         file: ./frontend/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/${{env.FRONTEND_IMAGE_NAME}}:${{env.GITHUB_RUN_ATTEMPT}}
+        tags: ${{ secrets.DOCKER_USERNAME }}/${{env.FRONTEND_IMAGE_NAME}}:${{github.run_attempt}}
 
 
 
